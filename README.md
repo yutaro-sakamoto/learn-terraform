@@ -1,0 +1,1 @@
+https://github.com/brikis98/terraform-up-and-running-code を参考にterraformの勉強をするためのリポジトリです。
