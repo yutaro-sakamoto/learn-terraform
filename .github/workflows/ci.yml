@@ -1,0 +1,32 @@
+name: test
+
+on:
+  push:
+  pull_request:
+    types: [opened, reopened, review_requested, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: init
+        working-directory: ./01-ec2
+        run: terraform init
+
+      - name: format check
+        working-directory: ./01-ec2
+        run: terraform fmt -check -recursive
+
+      - name: validate
+        working-directory: ./01-ec2
+        run: terraform validate
