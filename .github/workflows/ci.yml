@@ -15,18 +15,24 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        dirs:
+          - "01-ec2"
+          - "02-state"
+          - "04-modules"
+          - "05"
+    defaults:
+      run:
+        working-directory: ${{ matrix.dirs }}
     steps:
       - uses: actions/checkout@v2
 
       - name: init
-        working-directory: ./01-ec2
         run: terraform init
 
       - name: format check
-        working-directory: ./01-ec2
         run: terraform fmt -check -recursive
 
       - name: validate
-        working-directory: ./01-ec2
         run: terraform validate
