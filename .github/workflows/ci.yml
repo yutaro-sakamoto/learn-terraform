@@ -20,13 +20,14 @@ jobs:
         dirs:
           - "01-ec2"
           - "02-state"
-          - "04-modules"
+          - "04-module"
           - "05"
     defaults:
       run:
         working-directory: ${{ matrix.dirs }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@v4
 
       - name: init
         run: terraform init
