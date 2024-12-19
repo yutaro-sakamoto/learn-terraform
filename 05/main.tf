@@ -16,3 +16,8 @@ resource "aws_iam_user" "example2" {
   count = length(var.user_names)
   name  = var.user_names[count.index]
 }
+
+output "all_arns" {
+  value       = aws_iam_user.example[*].arn
+  description = "The ARNs of all users"
+}
